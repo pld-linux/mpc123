@@ -1,0 +1,17 @@
+--- Makefile	2006-01-05 22:28:53.000000000 +0100
++++ mpc123--main--0.1--base-0/Makefile	2006-01-28 20:27:23.000000000 +0100
+@@ -17,12 +17,10 @@
+ # along with this program; if not, write to the Free Software Foundation,
+ # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ 
+-CC := $(shell which colorgcc || which cc)
+-
+ TAGSPRG := ctags
+ 
+-CFLAGS += -Wall
+-LDFLAGS += -lao -lmpcdec
++override CFLAGS += -Wall
++override LDFLAGS += -lao -lmpcdec
+ 
+ # in case of DEBUG, we shall add these flags
+ ifneq ($(DEBUG), )

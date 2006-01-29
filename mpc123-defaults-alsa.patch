@@ -1,0 +1,24 @@
+diff -Nur old/ao.c new/ao.c
+--- old/ao.c	2006-01-05 22:28:53.000000000 +0100
++++ new/ao.c	2006-01-28 22:20:08.000000000 +0100
+@@ -63,7 +63,7 @@
+   /* set alsa options */
+   if( !strcmp(options.ao_driver, "alsa09") ){
+     opt_head=malloc(sizeof(ao_option));
+-    opt_head->key="dev";
++    opt_head->key="default";
+     opt_head->value=options.ao_dev;
+     opt_head->next=NULL;
+     debugf("[ALSA] ao_opts{%s}=%s", opt_head->key, opt_head->value);
+diff -Nur old/mpc123.c new/mpc123.c
+--- old/mpc123.c	2006-01-05 22:28:53.000000000 +0100
++++ new/mpc123.c	2006-01-28 20:40:54.000000000 +0100
+@@ -44,7 +44,7 @@
+   .shuffle=0,
+   .random=0,
+   .verbosity=0,
+-  .ao_driver="oss",
++  .ao_driver="alsa09",
+   .ao_dev="/dev/dsp",
+   .volume=1.0
+ };
