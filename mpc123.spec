@@ -3,7 +3,7 @@
 %bcond_without	alsa		# build without default alsa
 #
 Summary:	Musepack Console audio player
-Summary(pl):	Konsolowy odtwarzacz plików Musepack
+Summary(pl.UTF-8):   Konsolowy odtwarzacz plikÃ³w Musepack
 Name:		mpc123
 Version:	0.1.9
 Release:	1
@@ -27,14 +27,14 @@ mpc123 is handy console Musepack audio player. Its features are:
 - output to file (wav, cdr, au)
 - and more...
 
-%description -l pl
-mpc123 jest porêcznym, konsolowym odtwarzaczem plików Musepack. Jego
+%description -l pl.UTF-8
+mpc123 jest porÄ™cznym, konsolowym odtwarzaczem plikÃ³w Musepack. Jego
 funkcje to m.in:
-- odtwarzanie plików (po prostu ;)
+- odtwarzanie plikÃ³w (po prostu ;)
 - listy odtwarzania
 - odtwarzanie losowe
-- mo¿liwo¶æ zapisu do pliku (wav, cdr, au)
-- i wiêcej...
+- moÅ¼liwoÅ›Ä‡ zapisu do pliku (wav, cdr, au)
+- i wiÄ™cej...
 
 %prep
 # ' (fixes braindead Emacs syntax highlight)
