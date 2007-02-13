@@ -3,7 +3,7 @@
 %bcond_without	alsa		# build without default alsa
 #
 Summary:	Musepack Console audio player
-Summary(pl.UTF-8):   Konsolowy odtwarzacz plików Musepack
+Summary(pl.UTF-8):	Konsolowy odtwarzacz plików Musepack
 Name:		mpc123
 Version:	0.1.9
 Release:	1
