@@ -5,18 +5,17 @@
 Summary:	Musepack Console audio player
 Summary(pl.UTF-8):	Konsolowy odtwarzacz plików Musepack
 Name:		mpc123
-Version:	0.1.9
+Version:	0.2.1
 Release:	1
 License:	GPL
 Group:		Applications/Multimedia
-Source0:	http://dl.sourceforge.net/mpc123/%{name}_%{version}.tar.gz
-# Source0-md5:	6390a949cfefdd913c5cc826ca825e02
-Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-defaults-alsa.patch
+Source0:	http://dl.sourceforge.net/mpc123/%{name}-%{version}.tar.gz
+# Source0-md5:	430cf1ada67177d2ca802ce8e1b59916
+Patch0:		%{name}-defaults-alsa.patch
 URL:		http://mpc123.sourceforge.net/
 BuildRequires:	libao-devel
 BuildRequires:	libmpcdec-devel
-#%{?with_alsa:Requires:	libao-alsa}
+Suggests:	libao-alsa
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -38,15 +37,14 @@ funkcje to m.in:
 
 %prep
 # ' (fixes braindead Emacs syntax highlight)
-%setup -q -n %{name}--main--0.1--base-0
-%patch0 -p1
-%{?with_alsa:%patch1 -p1}
+%setup -q -n %{name}
+%{?with_alsa:%patch0 -p1}
 
 %build
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+	LDFLAGS="-lao -lmpcdec %{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
