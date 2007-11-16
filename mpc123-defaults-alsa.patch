@@ -1,11 +1,25 @@
---- mpc123/mpc123.c.orig	2007-10-30 23:22:26.946985911 +0000
-+++ mpc123/mpc123.c	2007-10-30 23:23:06.440960856 +0000
-@@ -171,7 +171,7 @@
+--- mpc123/mpc123.c.orig	2006-07-31 20:44:09.000000000 +0200
++++ mpc123/mpc123.c	2007-11-16 21:40:52.695911387 +0100
+@@ -171,7 +171,7 @@ int main(int argc, char ** argv){
     * specified on the command line
     */
    if( !options.ao_driver ){
 -    options.ao_driver="oss";
-+    options.ao_driver="alsa";
++    options.ao_driver="default";
    }
    if( !options.ao_dev ){
      /* if the driver is set, but not the output device, use
+--- mpc123/ao.c.orig	2006-07-31 16:23:31.000000000 +0200
++++ mpc123/ao.c	2007-11-16 21:43:43.149624990 +0100
+@@ -70,6 +70,11 @@ int mpc123_ao_init(void ** d, mpc_stream
+   
+   ao_initialize();
+ 
++  if( !strcmp(options.ao_driver, "default") ){
++    ao_dinfo = ao_driver_info(ao_default_driver_id());
++    options.ao_driver = (ao_dinfo == NULL) ? "oss" : ao_dinfo->short_name;
++  }
++
+   ao_drvnum=ao_driver_id(options.ao_driver);
+   if( ao_drvnum < 0 )
+     die("No suitable output driver\n");
