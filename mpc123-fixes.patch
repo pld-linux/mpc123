@@ -1,0 +1,62 @@
+--- mpc123-0.2.3/playlist.c.orig	2008-03-18 20:01:18.000000000 +0100
++++ mpc123-0.2.3/playlist.c	2008-03-19 22:24:05.593830685 +0100
+@@ -53,8 +53,7 @@ int populate_playlist_from_file(playlist
+ 
+     /* allocate and strcpy each element */
+     pl->files = realloc(pl->files, (i+1)*sizeof(char*));
+-    pl->files[i]=(char*)malloc(sl+1);
+-    strncpy(pl->files[i], strFile, sl);
++    pl->files[i] = strdup(strFile);
+     debugf(" \"%s\"", pl->files[i]);
+     i++;
+   }
+@@ -75,7 +74,6 @@ int populate_playlist_from_file(playlist
+ int populate_playlist_from_argv(playlist_t * pl, char ** argv,
+                                 int optind, int n){
+   int i=0;
+-  int sl=0;
+ 
+   debugf("before black magic: argv[0]=\"%s\", optind=%d, n=%d",
+         argv[0], optind, n);
+@@ -85,7 +83,7 @@ int populate_playlist_from_argv(playlist
+         argv[0], optind, n);
+ 
+   /* allocate main array (n elements + NULL) */
+-  pl->files=(char **)malloc(sizeof(char*) * n+1);
++  pl->files=(char **)malloc(sizeof(char*) * (n+1));
+ 
+   /* scramble playlist */
+   if(options.shuffle && !options.random){
+@@ -95,9 +93,7 @@ int populate_playlist_from_argv(playlist
+   /* otherwise just allocate and strcpy each element */
+     for(i=0; i<n; i++){
+       debugf("element \"%s\" ", argv[i]);
+-      sl=strlen(argv[i]);
+-      pl->files[i]=(char*)malloc(sl+1);
+-      strncpy(pl->files[i], argv[i], sl);
++      pl->files[i] = strdup(argv[i]);
+       debugf("        \"%s\"", pl->files[i]);
+     }
+   }
+--- mpc123-0.2.3/shuffle.c.orig	2008-03-18 20:01:18.000000000 +0100
++++ mpc123-0.2.3/shuffle.c	2008-03-19 22:22:44.529211076 +0100
+@@ -31,7 +31,7 @@
+ 
+ int shuffle(char **files, int n, char **argv) {
+   char *shuffletable;
+-  unsigned int i, sl, shuffind;
++  unsigned int i, shuffind;
+ 
+   srand(time(NULL));
+   shuffletable = (char *) calloc(n, sizeof(char));
+@@ -48,9 +48,7 @@ int shuffle(char **files, int n, char **
+       shuffind %= n;
+     }
+     shuffletable[shuffind] = 1;
+-    sl = strlen(argv[shuffind]);
+-    files[i] = (char *) malloc(sl+1);
+-    strncpy(files[i], argv[shuffind], sl);
++    files[i] = strdup(argv[shuffind]);
+     debugf("\"%s\"", files[i]);
+   }
+ 
