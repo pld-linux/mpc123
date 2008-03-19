@@ -1,14 +1,17 @@
 Summary:	Musepack Console audio player
 Summary(pl.UTF-8):	Konsolowy odtwarzacz plików Musepack
 Name:		mpc123
-Version:	0.2.1
-Release:	2
+Version:	0.2.3
+Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
 Source0:	http://dl.sourceforge.net/mpc123/%{name}-%{version}.tar.gz
-# Source0-md5:	430cf1ada67177d2ca802ce8e1b59916
+# Source0-md5:	b483634d6f7ceb76c62383a15c877f02
 Patch0:		%{name}-defaults-alsa.patch
+Patch1:		%{name}-pl.po.patch
+Patch2:		%{name}-fixes.patch
 URL:		http://mpc123.sourceforge.net/
+BuildRequires:	gettext-devel
 BuildRequires:	libao-devel
 BuildRequires:	libmpcdec-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -32,8 +35,10 @@ funkcje to m.in:
 
 %prep
 # ' (fixes braindead Emacs syntax highlight)
-%setup -q -n %{name}
+%setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__make} \
@@ -43,16 +48,24 @@ funkcje to m.in:
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_datadir}/locale}
 
 install mpc123 $RPM_BUILD_ROOT%{_bindir}
 install mpc123.1  $RPM_BUILD_ROOT%{_mandir}/man1
 
+for sdir in LOCALES/* ; do
+	ddir=$RPM_BUILD_ROOT%{_datadir}/locale/$(basename $sdir)/LC_MESSAGES
+	install -d $ddir
+	install $sdir/LC_MESSAGES/mpc123.mo $ddir/mpc123.mo
+done
+
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
-%attr(755,root,root) %{_bindir}/*
-%{_mandir}/man1/*
+%attr(755,root,root) %{_bindir}/mpc123
+%{_mandir}/man1/mpc123.1*
