@@ -1,12 +1,12 @@
 Summary:	Musepack Console audio player
 Summary(pl.UTF-8):	Konsolowy odtwarzacz plików Musepack
 Name:		mpc123
-Version:	0.2.3
+Version:	0.2.4
 Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
 Source0:	http://dl.sourceforge.net/mpc123/%{name}-%{version}.tar.gz
-# Source0-md5:	b483634d6f7ceb76c62383a15c877f02
+# Source0-md5:	88bd86b726142dcf07252d3ab4658b03
 Patch0:		%{name}-defaults-alsa.patch
 Patch1:		%{name}-pl.po.patch
 Patch2:		%{name}-fixes.patch
