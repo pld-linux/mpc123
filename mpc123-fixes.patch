@@ -1,5 +1,5 @@
---- mpc123-0.2.3/playlist.c.orig	2008-03-18 20:01:18.000000000 +0100
-+++ mpc123-0.2.3/playlist.c	2008-03-19 22:24:05.593830685 +0100
+--- mpc123-0.2.4/playlist.c.orig	2008-03-21 22:49:57.000000000 +0100
++++ mpc123-0.2.4/playlist.c	2008-08-24 08:06:22.842121739 +0200
 @@ -53,8 +53,7 @@ int populate_playlist_from_file(playlist
  
      /* allocate and strcpy each element */
@@ -10,15 +10,7 @@
      debugf(" \"%s\"", pl->files[i]);
      i++;
    }
-@@ -75,7 +74,6 @@ int populate_playlist_from_file(playlist
- int populate_playlist_from_argv(playlist_t * pl, char ** argv,
-                                 int optind, int n){
-   int i=0;
--  int sl=0;
- 
-   debugf("before black magic: argv[0]=\"%s\", optind=%d, n=%d",
-         argv[0], optind, n);
-@@ -85,7 +83,7 @@ int populate_playlist_from_argv(playlist
+@@ -85,7 +84,7 @@ int populate_playlist_from_argv(playlist
          argv[0], optind, n);
  
    /* allocate main array (n elements + NULL) */
@@ -27,17 +19,6 @@
  
    /* scramble playlist */
    if(options.shuffle && !options.random){
-@@ -95,9 +93,7 @@ int populate_playlist_from_argv(playlist
-   /* otherwise just allocate and strcpy each element */
-     for(i=0; i<n; i++){
-       debugf("element \"%s\" ", argv[i]);
--      sl=strlen(argv[i]);
--      pl->files[i]=(char*)malloc(sl+1);
--      strncpy(pl->files[i], argv[i], sl);
-+      pl->files[i] = strdup(argv[i]);
-       debugf("        \"%s\"", pl->files[i]);
-     }
-   }
 --- mpc123-0.2.3/shuffle.c.orig	2008-03-18 20:01:18.000000000 +0100
 +++ mpc123-0.2.3/shuffle.c	2008-03-19 22:22:44.529211076 +0100
 @@ -31,7 +31,7 @@
