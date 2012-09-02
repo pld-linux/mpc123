@@ -10,6 +10,7 @@ Source0:	http://downloads.sourceforge.net/mpc123/%{name}-%{version}.tar.gz
 Patch0:		%{name}-defaults-alsa.patch
 Patch1:		%{name}-pl.po.patch
 Patch2:		%{name}-fixes.patch
+Patch3:		%{name}-ao.patch
 URL:		http://mpc123.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildRequires:	libao-devel
@@ -39,6 +40,7 @@ funkcje to m.in:
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__make} \

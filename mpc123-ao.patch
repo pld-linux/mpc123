@@ -1,0 +1,10 @@
+--- mpc123-0.2.4/ao.c.orig	2012-09-02 20:56:28.634622442 +0200
++++ mpc123-0.2.4/ao.c	2012-09-02 20:58:38.347953072 +0200
+@@ -134,6 +134,7 @@
+   ao_fmt.rate=streaminfo->sample_freq;
+   ao_fmt.channels=streaminfo->channels;
+   ao_fmt.byte_format=AO_FMT_LITTLE;
++  ao_fmt.matrix=NULL;
+ 
+   /* output audio params */
+   debugf("<ao_fmt> bits = %d", ao_fmt.bits);
