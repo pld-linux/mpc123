@@ -12,7 +12,7 @@ Patch1:		%{name}-pl.po.patch
 Patch2:		%{name}-fixes.patch
 Patch3:		%{name}-ao.patch
 URL:		http://mpc123.sourceforge.net/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	libao-devel
 BuildRequires:	libmpcdec-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
