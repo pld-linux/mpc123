@@ -1,20 +1,21 @@
 Summary:	Musepack Console audio player
 Summary(pl.UTF-8):	Konsolowy odtwarzacz plików Musepack
 Name:		mpc123
-Version:	0.2.4
-Release:	4
+Version:	0.2.6
+Release:	1
 License:	GPL v2+
 Group:		Applications/Multimedia
-Source0:	http://downloads.sourceforge.net/mpc123/%{name}-%{version}.tar.gz
-# Source0-md5:	88bd86b726142dcf07252d3ab4658b03
+#Source0Download: https://github.com/bucciarati/mpc123/releases
+Source0:	https://github.com/bucciarati/mpc123/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	420420fdfb977c276aa719e46884c1be
 Patch0:		%{name}-defaults-alsa.patch
 Patch1:		%{name}-pl.po.patch
 Patch2:		%{name}-fixes.patch
 Patch3:		%{name}-ao.patch
-URL:		http://mpc123.sourceforge.net/
+URL:		https://github.com/bucciarati/mpc123
 BuildRequires:	gettext-tools
 BuildRequires:	libao-devel
-BuildRequires:	libmpcdec-devel
+BuildRequires:	musepack-devel >= 0.0.1.r475
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -46,19 +47,19 @@ funkcje to m.in:
 %{__make} \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="-lao -lmpcdec %{rpmldflags}"
+	LDFLAGS="%{rpmldflags} -lao -lmpcdecsv8"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_datadir}/locale}
 
 install mpc123 $RPM_BUILD_ROOT%{_bindir}
-install mpc123.1  $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p mpc123.1  $RPM_BUILD_ROOT%{_mandir}/man1
 
 for sdir in LOCALES/* ; do
 	ddir=$RPM_BUILD_ROOT%{_datadir}/locale/$(basename $sdir)/LC_MESSAGES
 	install -d $ddir
-	install $sdir/LC_MESSAGES/mpc123.mo $ddir/mpc123.mo
+	cp -p $sdir/LC_MESSAGES/mpc123.mo $ddir/mpc123.mo
 done
 
 %find_lang %{name}
@@ -68,6 +69,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README TODO
+%doc AUTHORS ChangeLog README.md TODO
 %attr(755,root,root) %{_bindir}/mpc123
 %{_mandir}/man1/mpc123.1*
